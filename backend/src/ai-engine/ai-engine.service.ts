@@ -80,7 +80,7 @@ export class AiEngineService implements OnModuleInit {
 
         try {
           resolve(JSON.parse(stdout.trim()));
-        } catch (e) {
+        } catch (e: any) {
           this.logger.error(`❌ AI Engine Output Parse Error: ${e.message}`);
           reject(new InternalServerErrorException('Failed to parse AI engine output'));
         }

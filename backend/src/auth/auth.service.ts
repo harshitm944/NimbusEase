@@ -68,7 +68,7 @@ export class AuthService {
         message: 'Registration successful. Please check your email to activate your account.',
         userId: user.id.toString(),
       };
-    } catch (e) {
+    } catch (e: any) {
       console.error(`[DEBUG] Registration error: ${e.message}`);
       throw e;
     }
@@ -289,7 +289,7 @@ export class AuthService {
       }
 
       return this.generateTokens(user);
-    } catch (e) {
+    } catch (e: any) {
       if (e instanceof UnauthorizedException) throw e;
       throw new UnauthorizedException('Invalid refresh token');
     }
