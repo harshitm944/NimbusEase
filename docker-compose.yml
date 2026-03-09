@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # MongoDB Database
   mongo:
@@ -7,7 +5,7 @@ services:
     container_name: secure-cloud-mongo
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-password123}
     ports:
       - "127.0.0.1:27018:27017"
     volumes:
@@ -19,7 +17,7 @@ services:
   redis:
     image: redis:7-alpine
     container_name: secure-cloud-redis
-    command: redis-server --requirepass password123
+    command: redis-server --requirepass ${REDIS_PASSWORD:-password123}
     ports:
       - "127.0.0.1:6379:6379"
     volumes:
@@ -30,21 +28,21 @@ services:
   # Backend API
   backend:
     build:
-      context: ./root/backend
+      context: ./backend
       dockerfile: Dockerfile
     container_name: secure-cloud-api
     environment:
       NODE_ENV: development
-      MONGO_URL: mongodb://admin:password123@mongo:27017/secure_cloud?authSource=admin
+      MONGO_URL: mongodb://admin:${MONGO_PASSWORD:-password123}@mongo:27017/secure_cloud?authSource=admin
       REDIS_HOST: redis
-      REDIS_PASSWORD: password123
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-password123}
     ports:
       - "3000:3000"
     depends_on:
       - mongo
       - redis
     volumes:
-      - ./root/backend:/app
+      - ./backend:/app
       - /app/node_modules
     networks:
       - secure-cloud-network
@@ -52,7 +50,7 @@ services:
   # Frontend
   frontend:
     build:
-      context: ./root/frontend
+      context: ./frontend
       dockerfile: Dockerfile
     container_name: secure-cloud-frontend
     environment:
@@ -62,6 +60,20 @@ services:
       - "3002:80"
     depends_on:
       - backend
+    networks:
+      - secure-cloud-network
+
+  # Secure SFTP/SSH Server
+  sftp:
+    image: atmoz/sftp
+    container_name: secure-cloud-sftp
+    volumes:
+      - ./backend/storage:/home/user/upload
+      - ./secrets/ssh_host_keys:/etc/ssh/keys
+      - ./secrets/ssh_keys:/home:ro
+      - ./secrets/users.conf:/etc/sftp/users.conf:ro
+    ports:
+      - "2222:22"
     networks:
       - secure-cloud-network
 

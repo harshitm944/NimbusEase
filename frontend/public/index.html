@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#102222" />
+    <title>NimbusEase | The Future of Zero-Trust Storage</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+      tailwind.config = {
+          darkMode: "class",
+          theme: {
+              extend: {
+                  colors: {
+                      "primary": "#0df2f2",
+                      "background-light": "#f5f8f8",
+                      "background-dark": "#102222",
+                  },
+                  fontFamily: {
+                      "display": ["Inter", "sans-serif"]
+                  },
+                  borderRadius: {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+                  },
+              },
+          },
+      }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-nav {
+            background: rgba(16, 34, 34, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(13, 242, 242, 0.1);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at center, rgba(13, 242, 242, 0.15) 0%, transparent 70%);
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(13, 242, 242, 0.1);
+        }
+        .feature-card:hover {
+            border-color: rgba(13, 242, 242, 0.4);
+            transform: translateY(-2px);
+            background: rgba(13, 242, 242, 0.03);
+        }
+        .verified-glow {
+            filter: drop-shadow(0 0 4px #0df2f2);
+        }
+        .mfa-digit-input:focus {
+            box-shadow: 0 0 0 2px rgba(13, 242, 242, 0.3);
+        }
+        .glass-panel {
+            background: rgba(16, 34, 34, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(13, 242, 242, 0.1);
+        }
+        .glow-subtle {
+            box-shadow: 0 0 15px rgba(13, 242, 242, 0.15);
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #3b5454; border-radius: 10px; }
+    </style>
+  </head>
+  <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased selection:bg-primary/30">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
